@@ -37,10 +37,12 @@ pipeline {
             steps {
                 echo '📦 Logging into Docker Hub & Pushing Images...'
                 bat 'docker login -u %REGISTRY_CREDS_USR% -p %REGISTRY_CREDS_PSW%'
-                bat 'docker push %IMAGE_BACKEND%:latest'
-                bat 'docker push %IMAGE_BACKEND%:%BUILD_NUMBER%'
-                bat 'docker push %IMAGE_FRONTEND%:latest'
-                bat 'docker push %IMAGE_FRONTEND%:%BUILD_NUMBER%'
+                retry(3) {
+                    bat 'docker push %IMAGE_BACKEND%:latest'
+                    bat 'docker push %IMAGE_BACKEND%:%BUILD_NUMBER%'
+                    bat 'docker push %IMAGE_FRONTEND%:latest'
+                    bat 'docker push %IMAGE_FRONTEND%:%BUILD_NUMBER%'
+                }
             }
         }
 
