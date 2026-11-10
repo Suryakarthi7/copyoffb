@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page | PostgreSQL Integrated</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="background-decorations">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Theme Palette Switcher -->
+    <div class="theme-picker">
+      <span class="theme-label"><i class="fa-solid fa-palette"></i> Colors</span>
+      <div class="theme-dots">
+        <button type="button" class="theme-dot active" data-set-theme="ocean" title="Ocean Cyan" style="background: linear-gradient(135deg, #06b6d4, #10b981);"></button>
+        <button type="button" class="theme-dot" data-set-theme="violet" title="Royal Violet" style="background: linear-gradient(135deg, #6366f1, #a855f7);"></button>
+        <button type="button" class="theme-dot" data-set-theme="sunset" title="Sunset Amber" style="background: linear-gradient(135deg, #f97316, #e11d48);"></button>
+        <button type="button" class="theme-dot" data-set-theme="emerald" title="Neon Emerald" style="background: linear-gradient(135deg, #10b981, #059669);"></button>
+      </div>
+    </div>
+
+    <div class="card login-card">
+      <div class="card-header">
+        <div class="logo-badge">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <h2>Welcome Back <span class="version-badge">v1</span></h2>
+        <p>Enter your details to sign in and record into PostgreSQL</p>
+      </div>
+
+      <!-- Alert Box -->
+      <div id="alertBox" class="alert hidden">
+        <i id="alertIcon" class="fa-solid fa-circle-check"></i>
+        <span id="alertMessage">Message</span>
+      </div>
+
+      <form id="loginForm" autocomplete="off">
+        <!-- Email or Username Input -->
+        <div class="input-group">
+          <label for="username">Username / Email</label>
+          <div class="input-field">
+            <i class="fa-regular fa-envelope"></i>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              placeholder="e.g. user@example.com or user123" 
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="input-field">
+            <i class="fa-solid fa-lock"></i>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              placeholder="••••••••" 
+              required
+            />
+            <button type="button" id="togglePassword" class="icon-btn" title="Toggle password visibility">
+              <i class="fa-regular fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Extra Actions -->
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="btn btn-primary">
+          <span class="btn-text">Log In</span>
+          <span class="loader hidden" id="btnLoader"></span>
+        </button>
+      </form>
+
+      <!-- View Saved Records Toggle -->
+      <div class="card-footer">
+        <button id="toggleTableBtn" class="btn btn-secondary">
+          <i class="fa-solid fa-table-list"></i> View PostgreSQL Records
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Records Modal / Panel -->
+    <div id="recordsPanel" class="records-panel hidden">
+      <div class="panel-header">
+        <h3><i class="fa-solid fa-server"></i> Stored Records in PostgreSQL</h3>
+        <button id="closePanelBtn" class="close-btn">&times;</button>
+      </div>
+      <div class="panel-body">
+        <div class="table-actions">
+          <button id="refreshBtn" class="btn-sm"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+          <span id="dbStatus" class="db-status">Checking DB...</span>
+        </div>
+        <div class="table-container">
+          <table id="recordsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email / Username</th>
+                <th>Stored At</th>
+                <th>IP Address</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <td colspan="4" class="text-center">Click Refresh to load records</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
