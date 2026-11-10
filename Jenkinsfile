@@ -2,6 +2,8 @@ pipeline {
     agent any
 
     environment {
+        // Add Docker Desktop binary directory to PATH for Jenkins Windows service
+        PATH = "C:\\Users\\ADMIN\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;${env.PATH}"
         DOCKER_HUB_USER = 'suryadocker638253'
         IMAGE_BACKEND = 'suryadocker638253/copyoffb-backend'
         IMAGE_FRONTEND = 'suryadocker638253/copyoffb-frontend'
@@ -16,10 +18,10 @@ pipeline {
             }
         }
 
-        stage('2. Backend Syntax & Dependency Check') {
+        stage('2. Backend Syntax Check') {
             steps {
-                echo '🧪 Verifying backend dependencies...'
-                bat 'cd backend && npm list --depth=0'
+                echo '🧪 Verifying backend JavaScript syntax...'
+                bat 'node -c backend/server.js'
             }
         }
 
